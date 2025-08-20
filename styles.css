@@ -1,0 +1,360 @@
+/* 
+  El selector universal * selecciona todos los elementos de la página.
+  ::before y ::after son pseudo-elementos que permiten insertar contenido
+  antes o después de un elemento.
+  Se usa para resetear márgenes y paddings y para que el box-sizing
+  se aplique a todos los elementos y pseudo-elementos.
+*/
+
+*,
+::before,
+::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* Incluye padding y border en el cálculo de ancho/alto */
+}
+
+
+/* El elemento raíz html */
+
+html {
+    font-size: 62.5%;
+    /* Esto hace que 1rem = 10px (62.5% de 16px que es el valor por defecto del navegador).
+     Facilita calcular medidas en rem. Ejemplo: 1.8rem ≈ 18px */
+}
+
+
+/* Estilos generales para el body */
+
+body {
+    font-family: 'Baskervville', serif;
+    /* Fuente base */
+    color: linen;
+    /* Color del texto */
+    background-color: rgb(20, 30, 40);
+    /* Fondo oscuro */
+}
+
+
+/* Títulos h1 usan la fuente Anton */
+
+h1 {
+    font-family: 'Anton', sans-serif;
+}
+
+
+/* Títulos h2-h6 usan la fuente Raleway */
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Raleway', sans-serif;
+}
+
+
+/* Enlaces (a) */
+
+a {
+    text-decoration: none;
+    /* Quita el subrayado */
+    color: linen;
+    /* Hereda el mismo color que el texto principal */
+}
+
+
+/* 
+  MAIN usa CSS Grid 
+  - Se definen 3 columnas: 
+    1. minmax(2rem, 1fr) -> columna lateral flexible pero nunca más pequeña de 2rem
+    2. minmax(min-content, 94rem) -> columna central donde va el contenido principal
+    3. minmax(2rem, 1fr) -> columna lateral derecha flexible.
+  - row-gap: espacio vertical entre filas.
+*/
+
+main {
+    display: grid;
+    grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem, 1fr);
+    row-gap: 3rem;
+}
+
+
+/* Imágenes */
+
+img {
+    width: 100%;
+    /* Que siempre ocupen todo el ancho disponible */
+    object-fit: cover;
+    /* Recorta la imagen para que no se deforme */
+}
+
+
+/* Línea horizontal <hr> */
+
+hr {
+    margin: 1.5rem 0;
+    border: 1px solid rgba(120, 120, 120, 0.6);
+    /* Línea gris semitransparente */
+}
+
+
+/* 
+  Encabezado principal (.heading) 
+  - Se ubica en la columna central (2/3) del grid principal.
+  - Dentro, se define un grid con 2 columnas de igual tamaño.
+*/
+
+.heading {
+    grid-column: 2 / 3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.5rem;
+}
+
+
+/* Texto principal */
+
+.text {
+    grid-column: 2 / 3;
+    /* También se ubica en la columna central */
+    font-size: 1.8rem;
+    letter-spacing: 0.6px;
+    /* Espacio entre letras */
+    column-width: 25rem;
+    /* Divide el texto en columnas de 25rem si hay espacio */
+    text-align: justify;
+    /* Alinea texto justificado */
+}
+
+
+/* Cabecera principal (hero) ocupa todo el ancho */
+
+.hero {
+    grid-column: 1 / -1;
+    /* Ocupa desde la primera hasta la última columna del grid */
+    position: relative;
+    /* Permite posicionar elementos relativos a este */
+}
+
+
+/* Título principal del hero */
+
+.hero-title {
+    text-align: center;
+    color: orangered;
+    font-size: 8rem;
+}
+
+
+/* Subtítulo del hero */
+
+.hero-subtitle {
+    font-size: 2.4rem;
+    color: orangered;
+    text-align: center;
+}
+
+
+/* Información del autor */
+
+.author {
+    font-size: 2rem;
+    font-family: "Raleway", sans-serif;
+}
+
+
+/* Hover sobre el enlace del autor */
+
+.author-name a:hover {
+    background-color: #306203;
+    /* Cambia el fondo al pasar el mouse */
+}
+
+
+/* Fecha de publicación */
+
+.publish-date {
+    color: rgba(255, 255, 255, 0.5);
+    /* Blanco semitransparente */
+}
+
+
+/* 
+  Iconos sociales en la parte superior
+  - Se usa Grid con 5 columnas iguales
+  - grid-auto-flow: column -> asegura que los ítems fluyan en columnas
+  - align-items: center -> centra verticalmente los íconos
+*/
+
+.social-icons {
+    display: grid;
+    font-size: 3rem;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    align-items: center;
+}
+
+
+/* Primera letra del primer párrafo */
+
+.first-paragraph::first-letter {
+    font-size: 6rem;
+    /* Letra inicial grande */
+    color: orangered;
+    float: left;
+    /* Hace que la letra "flote" a la izquierda */
+    margin-right: 1rem;
+}
+
+
+/* Citas destacadas */
+
+.quote {
+    color: #00beef;
+    font-size: 2.4rem;
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+}
+
+
+/* Antes de la cita aparece una comilla */
+
+.quote::before {
+    content: '" ';
+}
+
+
+/* Después de la cita aparece otra comilla */
+
+.quote::after {
+    content: ' "';
+}
+
+
+/* 
+  Sección que combina texto con imágenes
+  - 2 columnas: 1fr y 2fr (texto más pequeño, imágenes más grandes).
+  - Separación de 3rem entre columnas.
+*/
+
+.text-with-images {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+
+/* Listas personalizadas */
+
+.lists {
+    list-style-type: none;
+    /* Quita los puntos de lista */
+    margin-top: 2rem;
+}
+
+
+/* Espaciado entre cada ítem de lista */
+
+.lists li {
+    margin-bottom: 1.5rem;
+}
+
+
+/* Colores especiales para títulos de listas */
+
+.list-title,
+.list-subtitle {
+    color: #00beef;
+}
+
+
+/* 
+  Contenedor de imágenes 
+  - Grid con 2 columnas: 2fr (más grande) y 1fr (más pequeño).
+  - 3 filas que se ajustan al contenido (min-content).
+  - gap: espacio entre filas y columnas.
+  - place-items: center -> centra tanto horizontal como verticalmente.
+*/
+
+.image-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(3, min-content);
+    gap: 2rem;
+    place-items: center;
+}
+
+
+/* La primera y tercera imagen ocupan todo el ancho del grid */
+
+.image-1,
+.image-3 {
+    grid-column: 1 / -1;
+}
+
+
+/* MEDIA QUERIES (responsividad) */
+
+
+/* 
+  Para pantallas <= 720px
+  - Las imágenes se muestran en una sola columna
+*/
+
+@media only screen and (max-width: 720px) {
+    .image-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* 
+  Para pantallas <= 600px
+  - Texto e imágenes se muestran en una sola columna (apilados).
+*/
+
+@media only screen and (max-width: 600px) {
+    .text-with-images {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* 
+  Para pantallas <= 550px
+  - Ajusta tamaños de texto para verse mejor en móviles.
+*/
+
+@media only screen and (max-width: 550px) {
+    .hero-title {
+        font-size: 6rem;
+    }
+    .hero-subtitle,
+    .author,
+    .quote,
+    .list-title {
+        font-size: 1.8rem;
+    }
+    .social-icons {
+        font-size: 2rem;
+    }
+    .text {
+        font-size: 1.6rem;
+    }
+}
+
+
+/* 
+  Para pantallas <= 420px
+  - El título principal se hace aún más pequeño.
+*/
+
+@media only screen and (max-width:420px) {
+    .hero-title {
+        font-size: 4.5rem;
+    }
+}
